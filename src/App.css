@@ -1,0 +1,145 @@
+:root {
+  color: #17202a;
+  background: #f4f7f8;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 420px;
+  min-height: 320px;
+  background: #f4f7f8;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  min-height: 36px;
+  border: 1px solid #b8c4cc;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #17202a;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  border-color: #1f6f8b;
+  color: #114c65;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.app-shell {
+  display: grid;
+  gap: 24px;
+  max-width: 520px;
+  padding: 28px;
+}
+
+.header,
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.header button {
+  min-width: 76px;
+}
+
+h1 {
+  margin: 0 0 6px;
+  font-size: 24px;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.status,
+.footer {
+  margin: 0;
+  color: #53616d;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.status.ok {
+  color: #176b4d;
+}
+
+.status.error,
+.footer-message.error {
+  color: #a43f35;
+}
+
+.control-group {
+  display: grid;
+  gap: 10px;
+}
+
+.control-group span,
+.control-group output {
+  font-size: 13px;
+  color: #53616d;
+}
+
+.control-group output {
+  justify-self: end;
+  font-variant-numeric: tabular-nums;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: #1f6f8b;
+}
+
+.preset-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(72px, 1fr));
+  gap: 10px;
+}
+
+.footer {
+  border-top: 1px solid #d6e0e5;
+  padding-top: 14px;
+}
+
+.footer span {
+  min-width: 0;
+}
+
+@media (max-width: 460px) {
+  body {
+    min-width: 0;
+  }
+
+  .app-shell {
+    padding: 20px;
+  }
+
+  .header,
+  .footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .preset-row {
+    grid-template-columns: repeat(2, minmax(96px, 1fr));
+  }
+}
