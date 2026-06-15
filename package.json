@@ -2,6 +2,7 @@
   "name": "studio-display-brightness-controller",
   "description": "Apple Studio Display brightness controller for Windows.",
   "private": true,
+  "license": "MIT",
   "version": "0.1.0",
   "type": "module",
   "scripts": {

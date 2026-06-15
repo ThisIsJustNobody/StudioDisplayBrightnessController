@@ -23,3 +23,7 @@ Windows 默认生成 NSIS 安装包：
 - `npm run build`
 - `npm run test:slider`
 - `Push-Location src-tauri; cargo test --lib; cargo check; cargo clippy --lib -- -D warnings; Pop-Location`
+
+## 许可证
+
+本项目使用 MIT License，详见 `LICENSE`。

@@ -1,0 +1,88 @@
+name: Windows x64
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  build:
+    name: Build Windows x64 artifact
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Prepare Rust toolchain
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+          rustup component add clippy rustfmt
+          rustc --version
+          cargo --version
+
+      - name: Run frontend interaction tests
+        run: npm run test:slider
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Check Rust formatting
+        working-directory: src-tauri
+        run: cargo fmt --check
+
+      - name: Run Rust tests
+        working-directory: src-tauri
+        run: cargo test --lib
+
+      - name: Check Rust crate
+        working-directory: src-tauri
+        run: cargo check
+
+      - name: Run Rust clippy
+        working-directory: src-tauri
+        run: cargo clippy --lib -- -D warnings
+
+      - name: Build Tauri NSIS installer
+        run: npm run tauri build
+
+      - name: Collect installer
+        run: |
+          New-Item -ItemType Directory -Force -Path artifacts | Out-Null
+          Copy-Item -Path "src-tauri/target/release/bundle/nsis/*_x64-setup.exe" -Destination artifacts -ErrorAction Stop
+          Get-ChildItem artifacts | Format-Table -AutoSize
+
+      - name: Upload Windows x64 artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: StudioDisplayBrightnessController-windows-x64
+          path: artifacts/*.exe
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Generate artifact attestation
+        if: ${{ github.event.repository.private == false }}
+        uses: actions/attest@v4
+        with:
+          subject-path: artifacts/*.exe

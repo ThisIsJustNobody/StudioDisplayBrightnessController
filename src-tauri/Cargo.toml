@@ -3,6 +3,7 @@ name = "studio-display-brightness-controller"
 version = "0.1.0"
 description = "Apple Studio Display brightness controller for Windows."
 authors = ["Eric Yang"]
+license = "MIT"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
