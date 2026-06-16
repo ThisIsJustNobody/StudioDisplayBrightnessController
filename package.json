@@ -9,6 +9,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "test:slider": "node scripts/brightness-slider-interactions.cjs",
+    "test:release-version": "node scripts/sync-release-version.test.cjs",
+    "sync:release-version": "node scripts/sync-release-version.cjs",
     "preview": "vite preview",
     "tauri": "tauri"
   },

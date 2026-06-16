@@ -18,10 +18,20 @@ Windows 默认生成 NSIS 安装包：
 
 - `src-tauri/target/release/bundle/nsis/StudioDisplayBrightnessController_0.1.0_x64-setup.exe`
 
+## 发布版本
+
+发布构建使用 `vX.Y.Z` 格式的 Git tag 作为版本来源，例如：
+
+- `git tag v0.1.1`
+- `git push origin v0.1.1`
+
+GitHub Actions 在 tag 构建时会运行 `npm run sync:release-version -- v0.1.1`，将版本同步到 npm、Cargo、Tauri 配置，并把窗口标题更新为 `Studio Display Brightness v0.1.1`。
+
 ## 验证
 
 - `npm run build`
 - `npm run test:slider`
+- `npm run test:release-version`
 - `Push-Location src-tauri; cargo test --lib; cargo check; cargo clippy --lib -- -D warnings; Pop-Location`
 
 ## 许可证
