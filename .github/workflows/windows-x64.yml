@@ -119,9 +119,12 @@ jobs:
           if ($assets.Count -eq 0) {
             throw "No release asset found in release-assets."
           }
+          if ($assets.Count -ne 1) {
+            throw "Expected exactly one release asset, found $($assets.Count)."
+          }
 
-          $assetPaths = $assets | ForEach-Object { "release-assets/$($_.Name)" }
-          gh release create "${{ github.ref_name }}" @assetPaths `
+          $assetPath = "release-assets/$($assets[0].Name)"
+          gh release create "${{ github.ref_name }}" "$assetPath" `
             --repo "${{ github.repository }}" `
             --verify-tag `
             --title "${{ github.ref_name }}" `
